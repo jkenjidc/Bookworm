@@ -16,7 +16,7 @@ struct AddBookView: View {
     @State private var rating = 3
     @State private var genre = "Fantasy"
     @State private var review = ""
-    @State private var date = Date.now.formatted(date: .abbreviated, time: .omitted)
+    @State private var publisher = ""
     
     private var hasInvalidInfo: Bool {
         return title.isEmpty || author.isEmpty
@@ -29,6 +29,7 @@ struct AddBookView: View {
                 Section {
                     TextField("Name of book", text: $title)
                     TextField("Author's name", text: $author)
+                    TextField("Publisher's name", text: $publisher)
                     
                     Picker("Genre", selection: $genre) {
                         ForEach(genres, id: \.self) {
@@ -44,7 +45,7 @@ struct AddBookView: View {
                 
                 Section {
                     Button("Save") {
-                        let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating)
+                        let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating, publisher: publisher)
                         modelContext.insert(newBook)
                         dismiss()
                     }
